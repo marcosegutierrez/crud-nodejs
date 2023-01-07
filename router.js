@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
         if(error) {
             throw error
         } else {
-            res.send(results)
+            res.render('index', {results:results})
         }
     })
 })
