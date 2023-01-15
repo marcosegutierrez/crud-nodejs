@@ -13,4 +13,12 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/create', (req, res) => {
+    res.render('create')
+})
+
+const crud = require('./controllers/crud')
+
+router.post('/save', crud.save)
+
 module.exports = router
