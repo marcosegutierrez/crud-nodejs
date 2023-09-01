@@ -1,16 +1,16 @@
 const express = require('express')
 const router = express.Router()
 
-const conexion = require('./database/db')
+const { conexion, connection } = require('./database/db')
 
-router.get('/', (req, res) => {
-    conexion.query('SELECT * FROM users', (error, results) => {
-        if(error) {
-            throw error
-        } else {
-            res.render('index', {results:results})
-        }
-    })
+router.get('/', async (req, res) => {
+    try {
+        const [results] = await connection.query('SELECT * FROM users');
+        console.log(results)
+        res.render('index', {results: results});
+    } catch (error) {
+        return res.status(500).json({ message: "Algo salió mal"});
+    }
 })
 
 router.get('/create', (req, res) => {

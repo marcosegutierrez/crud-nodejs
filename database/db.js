@@ -1,18 +1,12 @@
-const mysql = require('mysql')
+const db = require('mysql2/promise');
 
-const conexion = mysql.createConnection({
+const connection = db.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'crud-nodejs-db'
-})
+    database: 'crud-nodejs-db',
+    waitForConnections: true,
+    connectionLimit: 10
+});
 
-conexion.connect((error) => {
-    if(error){
-        console.error('El error de conexion es: ' + error)
-        return
-    }
-    console.log('Conectado a BD Mysql!')
-})
-
-module.exports = conexion
+module.exports = connection;
